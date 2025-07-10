@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Contatos</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #e1bee7, #ce93d8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Poppins', Arial, sans-serif;
+    }
+
+    .container {
+      background-color: #800080;
+      width: 45%;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      color: white;
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    input {
+      width: 80%;
+      padding: 12px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: #d1c4e9;
+      color: #4a148c;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .button:hover {
+      background-color: #b39ddb;
+      transform: translateY(-3px);
+    }
+
+    .button:active {
+      transform: translateY(0);
+    }
+
+    p {
+      margin-top: 25px;
+      font-size: 20px;
+      font-weight: bold;
+      min-height: 30px; /* para não "sumir" o espaço quando muda o texto */
+    }
+  </style>
+
+</head>
+<body>
+
+  <div class="container">
+    <h1>Buscar Contato</h1>
+    <input placeholder="Digite nome do contato">
+    <br>
+    <button class="button">Procurar Contato</button>
+    <p></p>
+  </div>
+
+  <script>
+    let p = document.querySelector("p")
+    let input = document.querySelector("input")
+    let button = document.querySelector(".button")
+
+    const contato = [
+      {nome:"Fabiana",numero:"(66)99677-8769"},
+      {nome:"morena",numero:"(66)9972-8979"},
+      {nome:"juliana",numero:"(66)9650-7210"},
+      {nome:"yasmin",numero:"(66)9900-8767"},
+    ];
+
+    function procurarContato() {
+      let nomeProcurado = input.value.toLowerCase();
+      
+      if (nomeProcurado.trim() === "") {
+        p.textContent = "Digite um nome para buscar.";
+        return;
+      }
+
+      p.textContent = "Procurando contato..."; // mostra a mensagem de carregando
+
+      setTimeout(() => {
+        let encontrado = contato.find(c => c.nome.toLowerCase() === nomeProcurado);
+
+        if (encontrado) {
+          p.textContent = `Nome: ${encontrado.nome} - Número: ${encontrado.numero}`;
+        } else {
+          p.textContent = "Contato não encontrado.";
+        }
+
+        input.value = ""; // limpa o campo depois
+      }, 1000); // 1 segundo de "carregando"
+    }
+
+    button.addEventListener("click", procurarContato);
+  </script>
+
+</body>
+</html>
